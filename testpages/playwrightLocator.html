@@ -2,30 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Playwright Locator Testing</title>
+  <title>Playwright Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      width: 350px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #2575fc;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #2575fc;
+    }
+
+    .btn {
+      background: #2575fc;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #6a11cb;
+    }
+
+    .extra-links {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .extra-links a {
+      color: #2575fc;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Playwright Locator Examples</h1>
+  <div class="login-container">
+    <!-- getByAltText('Profile picture') -->
+    <img src="profile.jpg" alt="Profile picture">
 
-  <!-- getByRole('button', { name: 'Submit' }) -->
-  <button type="submit">Submit</button>
+    <h2>Welcome Back</h2>
 
-  <!-- getByText('Logout') -->
-  <a href="/logout">Logout</a>
+    <form>
+      <!-- getByLabel('Username') -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Enter your username">
+      </div>
 
-  <!-- getByLabel('Username') -->
-  <form>
-    <label for="username">Username</label>
-    <input id="username" type="text" name="username">
-  </form>
+      <!-- getByPlaceholder('Password') -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password">
+      </div>
 
-  <!-- getByPlaceholder('Search...') -->
-  <input type="search" placeholder="Search...">
+      <!-- getByRole('button', { name: 'Submit' }) -->
+      <!-- getByTestId('login-btn') -->
+      <button type="submit" class="btn" data-testid="login-btn">Submit</button>
+    </form>
 
-  <!-- getByAltText('Profile picture') -->
-  <img src="profile.jpg" alt="Profile picture">
-
-  <!-- getByTestId('login-btn') -->
-  <button data-testid="login-btn">Login</button>
+    <div class="extra-links">
+      <!-- getByText('Logout') (example link) -->
+      <a href="/logout">Logout</a>
+      <a href="#">Forgot Password?</a>
+    </div>
+  </div>
 </body>
 </html>
