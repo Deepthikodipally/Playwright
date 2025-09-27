@@ -1,0 +1,111 @@
+Day 2: Basic Test Structure (Playwright)
+
+--------------------------------------------------
+1. Writing Your First Playwright Test
+--------------------------------------------------
+A Playwright test typically includes:
+- Importing the test and expect modules
+- Defining a test() block
+- Using Playwright APIs to interact with the page
+- Adding assertions to validate outcomes
+
+Example:
+import { test, expect } from '@playwright/test';
+
+test('first test - open example page', async ({ page }) => {
+  // Navigate to URL
+  await page.goto('https://playwright.dev');
+
+  // Assertion: Title should contain "Playwright"
+  await expect(page).toHaveTitle(/Playwright/);
+});
+
+
+--------------------------------------------------
+2. Using test.describe and test Blocks
+--------------------------------------------------
+- test.describe: Groups related test cases.
+- test: Defines an individual test case.
+
+Example:
+import { test, expect } from '@playwright/test';
+
+test.describe('Login feature tests', () => {
+  
+  test('should load login page', async ({ page }) => {
+    await page.goto('https://example.com/login');
+    await expect(page).toHaveURL(/.*login/);
+  });
+
+  test('should show error for invalid credentials', async ({ page }) => {
+    await page.goto('https://example.com/login');
+    await page.fill('#username', 'wrongUser');
+    await page.fill('#password', 'wrongPass');
+    await page.click('button[type="submit"]');
+    await expect(page.locator('.error-message')).toHaveText('Invalid credentials');
+  });
+
+});
+
+
+--------------------------------------------------
+3. Running Tests in Headed vs Headless Mode
+--------------------------------------------------
+- Headless mode (default): Runs without opening a browser window. Faster for CI/CD.
+- Headed mode: Runs with visible browser. Useful for debugging.
+
+Commands:
+# Run in headless mode (default)
+npx playwright test
+
+# Run in headed mode
+npx playwright test --headed
+
+# Run in a specific browser
+npx playwright test --browser=firefox
+
+
+--------------------------------------------------
+4. Understanding the Test Lifecycle
+--------------------------------------------------
+Each Playwright test goes through these phases:
+1. Before test starts: Browser context & page created
+2. Test execution: Steps inside test() are executed
+3. After test finishes: Context & page closed automatically
+
+Lifecycle Hooks:
+- beforeAll / afterAll: Run once before/after all tests
+- beforeEach / afterEach: Run before/after each test
+
+Example:
+import { test, expect } from '@playwright/test';
+
+test.describe('Todo App', () => {
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://demo.playwright.dev/todomvc');
+  });
+
+  test('should add a new todo', async ({ page }) => {
+    await page.fill('.new-todo', 'Learn Playwright');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.todo-list li')).toHaveText('Learn Playwright');
+  });
+
+  test('should mark todo as completed', async ({ page }) => {
+    await page.fill('.new-todo', 'Write tests');
+    await page.keyboard.press('Enter');
+    await page.check('.todo-list li .toggle');
+    await expect(page.locator('.todo-list li')).toHaveClass(/completed/);
+  });
+
+});
+
+
+--------------------------------------------------
+Summary
+--------------------------------------------------
+- Use test for individual test cases.
+- Group related tests with test.describe.
+- Run in headed or headless mode.
+- Understand the lifecycle with hooks (beforeAll, afterAll, beforeEach, afterEach).

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Playwright Locator Testing</title>
+</head>
+<body>
+  <h1>Playwright Locator Examples</h1>
+
+  <!-- getByRole('button', { name: 'Submit' }) -->
+  <button type="submit">Submit</button>
+
+  <!-- getByText('Logout') -->
+  <a href="/logout">Logout</a>
+
+  <!-- getByLabel('Username') -->
+  <form>
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username">
+  </form>
+
+  <!-- getByPlaceholder('Search...') -->
+  <input type="search" placeholder="Search...">
+
+  <!-- getByAltText('Profile picture') -->
+  <img src="profile.jpg" alt="Profile picture">
+
+  <!-- getByTestId('login-btn') -->
+  <button data-testid="login-btn">Login</button>
+</body>
+</html>

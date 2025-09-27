@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Selector Example</title>
+  <style>
+    /* Descendant selector */
+    div p {
+      color: red;
+      font-weight: bold;
+    }
+
+    /* Adjacent sibling selector */
+    div + p {
+      color: blue;
+      font-style: italic;
+    }
+
+    /* General sibling selector */
+    div ~ p {
+      color: green;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>CSS Selector Demo</h2>
+
+  <div class="box">
+    <p>Paragraph 1 inside div (descendant → red)</p>
+    <span>Some span inside div</span>
+  </div>
+
+  <p>Paragraph 2 right after div (adjacent sibling → blue, also green from ~)</p>
+  <p>Paragraph 3 after div (general sibling → green)</p>
+
+  <section>
+    <p>Paragraph 4 inside section (not affected)</p>
+  </section>
+
+  <div class="box">
+  <p>Paragraph 1 (direct child of div)</p>
+  <span>
+    <p>Paragraph 2 (nested inside span → grandchild of div)</p>
+  </span>
+
+  <ul>
+    <li>Apple</li>
+    <li>banana</li>
+    <li>cherry</li>
+    <li>date</li>
+    <li>elderberry</li>
+    <li>fig</li>
+    <li>grape</li>
+    <li>honeydew</li>
+    <li>kiwi</li>
+  </ul>
+
+  <input type="radio" name="options" id="option1" value="1">
+  <label for="option1">Option 1</label><br>
+
+  <input type="radio" name="options" id="option2" value="2">
+  <label for="option2">Option 2</label><br>
+
+  <input type="radio" name="options" id="option3" value="3" disabled>
+  <label for="option3">Option 3</label><br>
+
+  <button>submit</button>
+
+</div>
+
+</body>
+</html>

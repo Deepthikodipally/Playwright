@@ -1,0 +1,128 @@
+
+CSS Selectors, XPath & Playwright Native Methods
+=================================================
+
+1. CSS Selectors
+----------------
+
+CSS selectors are the most common way to locate elements in Playwright.
+
+Basic Selectors:
+    #id                  -> by id 0
+    .class               -> by class 0
+    tagname              -> by tag 0
+    tagname.class        -> by tag and class 0
+    [attr=value]         -> by attribute 1
+    [attr^=value]        -> starts with
+    [attr$=value]        -> ends with
+    [attr*=value]        -> contains 
+
+Examples:
+    await page.click('#loginButton');
+    await page.fill('input[name="email"]', 'test@mail.com');
+    await page.click('button.submit');
+
+Combinators:
+    div p        -> descendant =.nested Child
+    div > p      -> direct child => direct
+    div + p      -> immediate sibling
+    div ~ p      -> general sibling
+div > p
+    
+
+Pseudo-classes:
+    :first-child
+    :last-child
+    :nth-child(2)
+    :nth-of-type(3)
+    :enabled
+    :disabled
+    :checked
+
+Example:
+    await page.check('input[type="checkbox"]:checked');
+
+Playwright-specific text selector:
+    await page.getByText('Submit');
+
+
+2. XPath Selectors
+------------------
+
+XPath is powerful when the DOM is complex.
+
+Basic Syntax:
+    //tagname             -> all matching elements
+    //tag[@attr="value"]  -> by attribute
+    //*[@id="login"]      -> any tag with id=login
+
+Example:
+    await page.locator('//input[@name="username"]').fill('admin');
+
+Text Matching:
+    //button[text()="Login"]
+    //button[contains(text(),"Sign")]
+
+Example:
+    await page.click('//button[contains(text(), "Submit")]');
+
+Relationships:
+    //div/p                        -> child
+    //div//p                       -> descendant
+    //div/following-sibling::p     -> following sibling
+    //div/preceding-sibling::p     -> preceding sibling
+
+Example:
+    await page.locator('//label[text()="Email"]/following-sibling::input').fill('test@mail.com');
+
+Position:
+    (//input[@type="text"])[1]   -> first input
+    (//button)[last()]           -> last button
+
+Example:
+    await page.click('(//button)[last()]');
+
+
+3. Playwright Native Methods
+-----------------------------
+
+Playwright has native locators and actions that reduce reliance on raw CSS/XPath.
+
+Common Methods:
+    page.locator(selector)             -> returns Locator object
+    page.click(selector)               -> click element
+    page.fill(selector, value)         -> type into input
+    page.type(selector, value)         -> slower typing
+    
+
+Advanced Locators:
+    page.getByRole('button', { name: 'Submit' });   -> ARIA role
+    page.getByText('Logout');                       -> text
+    page.getByLabel('Username');                    -> label
+    page.getByPlaceholder('Search...');             -> placeholder
+    page.getByAltText('Profile picture');           -> alt attribute
+    page.getByTestId('login-btn');                  -> data-testid attribute
+
+Locator Chaining:
+    await page.locator('form').locator('input[type="email"]').fill('test@mail.com');
+
+Handling Multiple Elements:
+    const items = page.locator('.list-item');
+    await items.nth(2).click();   -> third element
+
+
+Quick Comparison (CSS vs XPath in Playwright)
+---------------------------------------------
+
+Feature                     | CSS Selector | XPath
+---------------------------------------------------
+By ID/Class/Attr            | Easy         | Easy
+By Text                     | No           | Yes
+Parent/Child navigation     | Limited      | Strong
+Indexing (nth element)      | Yes          | Yes
+Readability                 | Cleaner      | Verbose
+Performance                 | Faster       | Slower
+
+Recommendation:
+    - Prefer CSS selectors + Playwright native locators (getBy*).
+    - Use XPath only for complex relative navigation.

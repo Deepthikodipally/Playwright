@@ -1,0 +1,109 @@
+CSS Selectors Documentation - Notes
+
+1. Descendant Selector: "div p"
+--------------------------------
+- Selects all <p> elements inside a <div>, at any depth.
+- Syntax: div p
+- Matches children, grandchildren, etc.
+
+HTML Example:
+<div>
+  <p>Paragraph 1 (direct child)</p>
+  <span>
+    <p>Paragraph 2 (nested → grandchild)</p>
+  </span>
+</div>
+
+CSS Example:
+div p {
+  color: red;
+}
+
+Result:
+- Paragraph 1 → red
+- Paragraph 2 → red
+
+--------------------------------
+
+2. Child Selector: "div > p"
+--------------------------------
+- Selects only <p> elements that are direct children of <div>.
+- Syntax: div > p
+
+HTML Example:
+<div>
+  <p>Paragraph 1 (direct child)</p>
+  <span>
+    <p>Paragraph 2 (nested → grandchild)</p>
+  </span>
+</div>
+
+CSS Example:
+div > p {
+  color: blue;
+}
+
+Result:
+- Paragraph 1 → blue
+- Paragraph 2 → not affected
+
+--------------------------------
+
+3. Adjacent Sibling Selector: "div + p"
+--------------------------------
+- Selects the first <p> immediately after a <div>.
+- Syntax: div + p
+
+HTML Example:
+<div>Div element</div>
+<p>Paragraph 1 right after div</p>
+<p>Paragraph 2 after div</p>
+
+CSS Example:
+div + p {
+  color: blue;
+}
+
+Result:
+- Paragraph 1 → blue (immediate sibling)
+- Paragraph 2 → not affected
+
+--------------------------------
+
+4. General Sibling Selector: "div ~ p"
+--------------------------------
+- Selects all <p> elements after a <div> at the same parent level.
+- Syntax: div ~ p
+
+HTML Example:
+<div>Div element</div>
+<p>Paragraph 1 right after div</p>
+<p>Paragraph 2 after div</p>
+
+CSS Example:
+div ~ p {
+  color: green;
+}
+
+Result:
+- Paragraph 1 → green
+- Paragraph 2 → green
+
+--------------------------------
+
+5. Quick Comparison Table
+--------------------------------
+Selector      | Meaning                       | Example Matched
+------------- | ----------------------------- | ----------------------
+div p         | Descendant (any depth)        | Paragraphs inside div
+div > p       | Direct child only             | Paragraphs directly inside div
+div + p       | Immediate next sibling        | First <p> after div
+div ~ p       | All siblings after div        | All <p> after div (same parent)
+
+--------------------------------
+
+Notes:
+- Use descendant selectors when you want to style all nested elements.
+- Use child selectors for strict one-level targeting.
+- Use adjacent sibling for the first element immediately after another.
+- Use general sibling for all following elements at the same hierarchy.

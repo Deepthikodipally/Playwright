@@ -1,0 +1,9 @@
+npx playwright test  => running all the tests
+ npx playwright test  --headed => running all the tests in headed mode
+ npx playwright test --project=chromium => running tests in specific browser
+ npx playwright test --project=chromium --headed => running tests in specific browser in headed mode
+ npx playwright test --project=chromium --project=firefox => running tests in multiple browsers
+npx playwright test tests/day2.spec.js  => running specific test file
+npx playwright test -g "valid credentials"  => running specific test by its name
+
+npx playwright test  tests/day2.spec.js --headed  --debug 
