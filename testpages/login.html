@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Day 4 — Login Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            background: #f5f7fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(20, 30, 60, 0.08);
+            width: 360px;
+        }
+
+        .field {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #233040;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #dbe3ea;
+            font-size: 14px;
+        }
+
+        .inline {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 0;
+            background: #2463ea;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-top: 12px;
+            color: crimson;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success {
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" role="main">
+        <h2>Login</h2>
+
+        <div class="field">
+            <label for="username">Username</label>
+            <input id="username" placeholder="Enter username" type="text" />
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <input id="password" placeholder="Enter password" type="password" />
+        </div>
+
+        <div class="field inline">
+            <input id="remember" type="checkbox" />
+            <label for="remember" style="margin:0">Remember me</label>
+        </div>
+
+        <div class="field">
+            <label>Role</label>
+            <div class="inline" role="radiogroup" aria-label="role-group">
+                <label><input name="role" value="user" type="radio" checked /> User</label>
+                <label><input name="role" value="admin" type="radio" /> Admin</label>
+                <label><input name="role" value="admin" type="radio" /> Admin</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="lang">Language</label>
+            <select id="lang">
+                <option value="en">English</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+                <option value="telugu">telugu</option>
+                <option value="malayalam">malayalam</option>
+                <option value="kannadam">kannadam</option>
+                <option value="german">german</option>
+                <option value="chineese">chineese</option>
+            </select>
+        </div>
+
+        <div class="actions">
+            <button id="loginBtn" role="button">Login</button>
+            <button id="clearBtn" type="button">Clear</button>
+        </div>
+
+        <div id="error" class="message" role="status" aria-live="polite"></div>
+        <div id="success" class="success" role="status" aria-live="polite">Logged in successfully!</div>
+    </div>
+
+    <script>
+        // Dummy client-side "login" logic for the exercise
+        const loginBtn = document.getElementById('loginBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const remember = document.getElementById('remember');
+        const error = document.getElementById('error');
+        const success = document.getElementById('success');
+
+        function showError(msg) {
+            success.style.display = 'none';
+            error.style.display = 'block';
+            error.textContent = msg;
+        }
+        function showSuccess() {
+            error.style.display = 'none';
+            success.style.display = 'block';
+        }
+
+        loginBtn.addEventListener('click', () => {
+            const u = username.value.trim();
+            const p = password.value;
+            // For demo: valid creds => username: "admin", password: "Admin@123"
+            if (!u || !p) {
+                showError('Please enter username and password');
+                return;
+            }
+            if (u === 'admin' && p === 'Admin@123') {
+                showSuccess();
+            } else {
+                showError('Invalid username or password');
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            username.value = '';
+            password.value = '';
+            remember.checked = false;
+            success.style.display = 'none';
+            error.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
