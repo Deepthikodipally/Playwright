@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 
-test("valid login", async ({ page }) => {
- await page.goto('https://www.microsoft.com/edge');
+test("login page", async ({ page }) => {
+ //await page.goto('https://www.microsoft.com/edge');
  await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", { waitUntil: 'load' });
- await page.waitForLoadState("load")
+ //await page.waitForLoadState("load")
   let username=page.locator("[name='username']");
   let password=page.locator("[name='password']");
   let login=page.locator("[type='submit']");
