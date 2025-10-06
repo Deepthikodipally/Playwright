@@ -1,0 +1,67 @@
+Day 5: Assertions & Validations in Playwright
+
+What are Assertions?
+--------------------
+Assertions are used to verify expected outcomes during test execution. 
+In Playwright, we use the built-in "expect" API for validations.
+
+Common Playwright Assertions
+----------------------------
+
+1. Visibility Checks
+--------------------
+import { test, expect } from '@playwright/test';
+
+test('check element visibility', async ({ page }) => {
+  await page.goto('https://example.com');
+  const header = page.locator('h1');
+  await expect(header).toBeVisible();   // Element should be visible
+});
+
+2. URL Assertions
+-----------------
+test('validate page URL', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveURL('https://example.com/');
+});
+
+3. Title Assertions
+-------------------
+test('validate page title', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle(/Example/);   // Regex supported
+});
+
+4. Text Assertions
+------------------
+test('validate text content', async ({ page }) => {
+  await page.goto('https://example.com');
+  const element = page.locator('h1');
+  await expect(element).toHaveText('Example Domain');
+});
+
+Practice: Validate a Successful Login
+-------------------------------------
+Scenario: User logs into an app with valid credentials, and we validate login success.
+
+test('successful login validation', async ({ page }) => {
+  await page.goto('https://opensource-demo.orangehrmlive.com/');
+
+  // Fill login form
+  await page.fill('input[name="username"]', 'Admin');
+  await page.fill('input[name="password"]', 'admin123');
+  await page.click('button[type="submit"]');
+
+  // Assertions after login
+  await expect(page).toHaveURL(/dashboard/);   // URL contains "dashboard"
+  await expect(page.locator('h6')).toHaveText('Dashboard');  // Dashboard heading visible
+  await expect(page.locator('img[alt="profile picture"]')).toBeVisible(); // Profile pic visible
+});
+
+Key Takeaways
+-------------
+- Use expect(locator).toBeVisible() → for UI element checks.
+- Use expect(page).toHaveURL() → for navigation checks.
+- Use expect(page).toHaveTitle() → for title checks.
+- Use expect(locator).toHaveText() → for content validation.
+- Assertions increase test reliability and confirm actual results match expectations.
