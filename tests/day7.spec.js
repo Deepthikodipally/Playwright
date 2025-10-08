@@ -22,9 +22,8 @@ test("Handling Waits & Timing in Playwright", async ({ page }) => {
     await page.waitForLoadState("load")// wait for page to load
     await page.waitForLoadState("domcontentloaded")// wait for dom to be loaded
 
-
      // mouse keybords 
 
-
+     
 
 })
