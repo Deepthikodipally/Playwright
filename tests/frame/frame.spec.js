@@ -65,13 +65,13 @@ test("frame Handling in Playwright", async ({ page }) => {
     // }
 
     // frame handling
-    let framePage=page.frameLocator('[title="Test Frame"]')
-    
-    let textContent=await framePage.locator('p').textContent()
+    let framePage = page.frameLocator('[title="Test Frame"]')
+
+    let textContent = await framePage.locator('p').textContent()
     console.log(textContent);
-    let buttonText=await framePage.locator('button').textContent()
+    let buttonText = await framePage.locator('button').textContent()
     console.log(buttonText);
-    
+
 
 
 
