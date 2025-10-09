@@ -1,0 +1,78 @@
+Title: Frame Handling in Playwright – Method Wise Explanation Notes
+
+--------------------------------------------------------------
+| Step | Action                     | Description                         |
+| ---- | -------------------------- | ----------------------------------- |
+| 1    | page.goto()                | Opens target web page               |
+| 2    | getByTestId()              | Locates input fields/buttons        |
+| 3    | fill()                     | Enters text into input fields       |
+| 4    | click()                    | Submits login                       |
+| 5    | locator()                  | Selects elements using CSS selector |
+| 6    | scrollIntoViewIfNeeded()   | Ensures visibility                  |
+| 7    | mouse.wheel()              | Scrolls down                        |
+| 8    | hover()                    | Hovers over button                  |
+| 9    | frameLocator()             | Switches to iframe                  |
+| 10   | textContent()              | Reads text inside frame             |
+| 11   | console.log()              | Logs result                         |
+--------------------------------------------------------------
+
+Detailed Explanation of Each Method:
+
+1) page.goto(url)
+   - Navigates the browser to the specified URL.
+   - Automatically waits for the page to load completely.
+   - Used to open the target application or website before performing actions.
+
+2) getByTestId('id')
+   - Locates a web element using the 'data-testid' attribute.
+   - Very stable for automated tests since it avoids fragile selectors.
+   - Example: page.getByTestId('login-email') targets the email input field.
+
+3) fill('text')
+   - Clears any existing text in the input field.
+   - Types the provided text value.
+   - Example: fill('vignesh6381@gmail.com') enters email into the field.
+
+4) click()
+   - Simulates a user mouse click on an element.
+   - Works for buttons, links, and input fields.
+   - Often used to submit forms or trigger navigation.
+
+5) locator(selector)
+   - Creates a reference (locator) to find elements using CSS or XPath.
+   - Allows reusing the same element reference for multiple actions.
+   - Example: let button = page.locator('[href="/playground/fundamentals"]>button')
+
+6) scrollIntoViewIfNeeded()
+   - Ensures the target element is visible in the browser viewport.
+   - If the element is off-screen, Playwright automatically scrolls to it.
+   - Prevents "element not visible" errors during interaction.
+
+7) mouse.wheel(x, y)
+   - Simulates mouse scroll action.
+   - Commonly used to scroll down the page by pixels.
+   - Example: page.mouse.wheel(0, 1900) scrolls vertically down 1900 pixels.
+
+8) hover()
+   - Moves the mouse pointer over an element.
+   - Useful to trigger hover effects or dropdown menus.
+   - Example: await button.hover() moves the pointer over the button.
+
+9) frameLocator(selector)
+   - Used to interact with elements inside an iframe.
+   - Switches control to the specified frame using its selector.
+   - Example: page.frameLocator('[data-testid="test-iframe"]') accesses iframe content.
+
+10) textContent()
+    - Extracts and returns the text content of an element.
+    - Commonly used for validation or logging text inside the page or frame.
+    - Example: framePage.locator('h3').textContent() reads text from an <h3> tag.
+
+11) console.log(value)
+    - Logs information or variable values to the terminal.
+    - Used to debug or confirm that a value was captured correctly.
+    - Example: console.log(r) prints the text fetched from iframe.
+
+--------------------------------------------------------------
+
+End of Notes.
