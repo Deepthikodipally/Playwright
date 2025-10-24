@@ -31,6 +31,11 @@ test('js alerts', async ({ page }) => {
     let text = await page.locator('[id="result"]').textContent()
     console.log(text);
 
+   
+    // await expect(text).toEqual("test")
+     
+    // await page.screenshot({path:"image/alerts/yy.png",fullPage:true})
+
 
 });
 
