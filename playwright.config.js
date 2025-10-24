@@ -39,6 +39,8 @@ export default defineConfig({
       name: 'chromium',
       use:{
         viewport:null,
+        // video:'on'
+        // screenshot:'only-on-failure'
       }
     },
 
