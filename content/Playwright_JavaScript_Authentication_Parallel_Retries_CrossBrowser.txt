@@ -1,0 +1,155 @@
+
+Playwright with JavaScript — Session Notes
+------------------------------------------
+
+TOPICS COVERED:
+1. Authentication
+2. Parallel Execution
+3. Retries Mechanism
+4. Cross-Browser Testing
+
+
+1️⃣ AUTHENTICATION IN PLAYWRIGHT
+--------------------------------
+Theory:
+Authentication means logging into an application before performing further actions.
+In Playwright, there are two common ways to handle authentication:
+1. Using the login page (UI-based login)
+2. Using stored session (auth.json) for reusing logged-in state.
+
+This saves time and avoids logging in repeatedly.
+
+Practical Example 1 — Login and Save Auth State:
+------------------------------------------------
+import { test, expect } from '@playwright/test';
+
+test('Login and save authentication state', async ({ page }) => {
+  await page.goto('https://example.com/login');
+
+  await page.fill('#username', 'admin');
+  await page.fill('#password', 'password123');
+  await page.click('button[type="submit"]');
+
+  await expect(page).toHaveURL('https://example.com/dashboard');
+
+  // Save session state to file
+  await page.context().storageState({ path: 'auth.json' });
+});
+
+Practical Example 2 — Reuse Saved Login Session:
+------------------------------------------------
+import { test, expect } from '@playwright/test';
+
+test.use({ storageState: 'auth.json' });
+
+test('Access dashboard with stored authentication', async ({ page }) => {
+  await page.goto('https://example.com/dashboard');
+  await expect(page.locator('h1')).toContainText('Welcome');
+});
+
+
+2️⃣ PARALLEL EXECUTION
+----------------------
+Theory:
+Playwright supports parallel test execution using multiple workers.
+You can set the number of workers in the configuration file or via CLI.
+
+Practical Example:
+------------------
+playwright.config.js
+--------------------
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  workers: 4, // run 4 tests in parallel
+  reporter: [['list'], ['html']],
+});
+
+Command to run:
+---------------
+npx playwright test --workers=4
+
+
+3️⃣ RETRIES MECHANISM
+---------------------
+Theory:
+Retries help rerun failed tests automatically before marking them as failed.
+Useful for network or environment-related flaky failures.
+
+Practical Example:
+------------------
+playwright.config.js
+--------------------
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  retries: 2, // retry each failed test twice
+  reporter: [['html']],
+});
+
+Test Example:
+-------------
+import { test, expect } from '@playwright/test';
+
+test('flaky test example', async ({ page }) => {
+  await page.goto('https://example.com');
+  const button = page.locator('#loadButton');
+  await button.click();
+  await expect(page.locator('#successMsg')).toHaveText('Loaded!', { timeout: 2000 });
+});
+
+
+4️⃣ CROSS-BROWSER TESTING
+--------------------------
+Theory:
+Playwright supports multiple browsers: Chromium, Firefox, and WebKit.
+This ensures your app works correctly across all browsers.
+
+Practical Example:
+------------------
+playwright.config.js
+--------------------
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  projects: [
+    {
+      name: 'Chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'Firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'WebKit',
+      use: { ...devices['Desktop Safari'] },
+    },
+  ],
+});
+
+Command to run:
+---------------
+npx playwright test
+
+
+SUMMARY TABLE
+--------------
+Feature              | Purpose                     | Key Config      | Benefit
+----------------------|-----------------------------|------------------|------------------------
+Authentication        | Reuse login sessions        | storageState     | Faster tests
+Parallel Execution    | Run tests concurrently      | workers          | Saves time
+Retries Mechanism     | Auto rerun flaky tests      | retries          | Stable CI runs
+Cross-Browser Testing | Test in multiple browsers   | projects         | Compatibility check
+
+
+CI/CD Example Command:
+----------------------
+npx playwright test --workers=4 --retries=2 --project=Chromium --reporter=html
+
+This enables parallel execution, retries, and HTML reporting in CI pipelines.
+
+------------------------------------------
+End of Notes
+------------------------------------------

@@ -46,7 +46,7 @@ test('3. Title Assertions', async ({ page }) => {
 
 })
 
-test.only('4. Text Assertions', async ({ page }) => {
+test('4. Text Assertions', async ({ page }) => {
     await page.goto("http://127.0.0.1:5500/testpages/login.html")
 
 
