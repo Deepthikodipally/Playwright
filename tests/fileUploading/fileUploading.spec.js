@@ -40,7 +40,7 @@ test("file download", async ({ page }) => {
 })
 
 
-test.only("file upload", async ({ page }) => {
+test("file upload", async ({ page }) => {
     await page.goto('https://blueimp.github.io/jQuery-File-Upload/?utm_source=chatgpt.com')
     let o="image_0901.jpg"
     await page.setInputFiles('[type="file"]','tests/testData/'+o)
