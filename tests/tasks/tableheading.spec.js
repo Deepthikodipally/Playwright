@@ -50,4 +50,22 @@ await page.getByRole('tab', {name: "Product Inventory"}).click()
       console.log(header1);
       expect(header1).toEqual(expectedHeaders[index])
     })
+
+   
+    //Order Processing
+await page.getByRole('tab', {name: "Order Processing"}).click()
+     let headersElement2 = (await page.locator('//th').all()).filter((Value, index) => {
+       return index > 0
+     })
+
+    //test data 
+    let expectedHeaders1 = ["Order ID", "Customer", "Email", "Amount", "Status", "Order Date", "Items", "Priority", "Actions"]
+
+    let headerTexts2 = headersElement2.map(async (element, index) => {
+    //     // console.log();
+       let header2 = await element.textContent()
+      console.log(header2);
+      expect(header2).toEqual(expectedHeaders1[index])
+    })
+
     })
