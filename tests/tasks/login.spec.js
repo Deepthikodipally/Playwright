@@ -51,7 +51,7 @@ test("Invalid login", async ({ page }) => {
   let login=page.locator("[type='submit']");
 
   await username.fill("Admin");
-  await password.fill("wrongpassword");
+  await password.fill("kyuyu");
   await login.click();
 
   //await expect(page.locator('[class="oxd-main-menu-item active"]'));
